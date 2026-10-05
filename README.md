@@ -1,75 +1,53 @@
-<p align="center">
-<image
-  src="https://github.com/BB-Media-IT/.github/assets/4085605/c08bf803-09ca-420c-b728-8f6ea85b3aa2"
-  height=120
-  margin=0>
-</p>
-  
-# How to Integrate the BB Media Where To Stream Widget
+# Where to Stream · widget de Origin Nexus (v2)
 
-This document provides instructions on how to integrate the Where To Stream widget into your website. The widget helps users find where to stream movies or series across different platforms.
+Web component embebible que muestra **dónde ver** una película o serie en un país:
+suscripción, gratis/AVOD, alquiler y compra. Shadow DOM, sin dependencias, **~5,4 KB gzip**.
 
-## Integration Instructions
-To add the widget to your website, follow these steps:
-
-**Add the Widget Container**
-
-1. **Insert the following HTML code into the desired location on your webpage**:
-  ```html
-  <div id="WhereToStream" 
-       wts-id="" 
-       wts-provider=""
-       wts-type="" 
-       wts-country="" 
-       wts-tag="">
-  </div>
-  ```
-- `wts-id`: Provide the ID from the source (IMDb, TMDB, TVDB, EIDR, BB Media).
-- `wts-provider`: Identify the supplier with the appropriate code: <span class="badge rounded-pill text-bg-dark">imdb</span> <span class="badge rounded-pill text-bg-dark">tmdb</span> <span class="badge rounded-pill text-bg-dark">tvdb</span> <span class="badge rounded-pill text-bg-dark">eidr</span> <span class="badge rounded-pill text-bg-dark">bb</span>
-- `wts-type`: Specify the type of content (movie or series).
-- `wts-country`: Enter the country code to find availability.
-- `wts-tag`: Use a tag for referencing your site or partner using the widget.
-  
-2. **Include the Widget Script**
-  Add the following script tag to your HTML, ideally before the closing `</body>` tag:
-
-```<script src="https://bb-media.com/widgets/where_to_stream.js"></script>```
-
-This script loads the widget functionality and ensures that it operates correctly on your page.
-
-**Example**
-Here is an example of how your HTML might look with the widget integrated:
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Widget Example</title>
-</head>
-<body>
-    <div id="WhereToStream" 
-         wts-id="tt1234567" 
-         wts-provider="imdb"
-         wts-type="movie" 
-         wts-country="US" 
-         wts-tag="example-site">
-    </div>
-
-    <script src="https://bb-media.com/widgets/where_to_stream.js"></script>
-</body>
-</html>
+<script src="https://cdn.origin.fabricdata.com/where-to-stream/2/where-to-stream.js" defer></script>
+<fabric-where-to-stream uid="oi-1234" country="US" client-key="pk_live_…"></fabric-where-to-stream>
 ```
-## Preview
-![image](https://github.com/user-attachments/assets/b6109c01-c389-4faa-ad81-3cc9967fde69)
 
+> **Estado: beta.** El endpoint de datos (`GET /v1/where-to-stream` de la API de Nexus)
+> **todavía no existe**; la demo corre contra un **mock**. CDN y dominio de API están
+> `[[confirmar]]`. Nada de esto está publicado.
 
-## Customization
-- `wts-id` : Replace with the appropriate ID from your data source.
-- `wts-provider` : Replace it with the appropriate provider.
-- `wts-type`: Choose `movie` or `series` based on the content you want to display.
-- `wts-country`: Use the ISO 3166-1 alpha-2 country code to specify the region.
-- `wts-tag`: Tag provided by BB Media.
+| Doc | Qué tiene |
+|-----|-----------|
+| [`docs/INTEGRACION.md`](docs/INTEGRACION.md) | Snippet, atributos, theming, eventos, seguridad, build/CDN, migración desde el legacy |
+| [`docs/API-CONTRACT.md`](docs/API-CONTRACT.md) | Contrato del endpoint y lo que necesita el backend (keys por dominio, rate limit, CORS, caché) |
+| [`demo/`](demo/) | Página de demo con configurador y snippet copiable (`npm run demo`) |
 
-## Support
-For any issues or questions regarding the integration, please contact our support team at [support@bb-media.com](mailto:support@bb-media.com).
+## Desarrollo
+
+```bash
+npm ci
+npm run lint && npm run typecheck && npm test && npm run build && npm run size
+npm run demo          # http://localhost:4173/demo/
+npm run tokens:sync   # regenera src/tokens.generated.ts desde @fabric-data-it/nexus-tokens
+```
+
+```
+src/element.ts          el custom element (render sin innerHTML)
+src/api.ts              fetch + caché compartida + validación de la respuesta
+src/styles.ts           CSS del shadow root (sobre tokens --nx-*)
+src/tokens.generated.ts GENERADO desde @fabric-data-it/nexus-tokens
+demo/                   página de demo + mock de la API (no entra en el bundle)
+index.html              demo LEGACY (v1, BB Media) que sirve GitHub Pages hoy
+```
+
+**Tokens:** el look sale de `@fabric-data-it/nexus-tokens` (fuente de verdad: Live Streaming).
+Mientras el paquete no esté publicado en GitHub Packages, `tokens:sync` lo lee de una copia
+local (`NEXUS_TOKENS_DIR`); el resultado se commitea, así que CI no depende del paquete.
+
+## Legacy (v1)
+
+`index.html` es la demo vieja (Vue + Bootstrap, marca BB Media) que publica **GitHub Pages**
+desde `main`. **No funciona:** su script (`bb-media.com/widgets/where_to_stream.js`) da 404 y
+el proxy `middle.bb-media.com` responde 500. Este PR le agrega un aviso visible; mergear a
+`main` lo publica en Pages.
+
+## Licencia
+
+Propietaria — ver [`LICENSE`](LICENSE) (`[[confirmar: licencia comercial]]`). Reemplaza la MIT
+de "BB Media IT".
