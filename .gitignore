@@ -1,1 +1,7 @@
 .vscode
+node_modules/
+dist/
+.env*
+.npmrc
+*.local.md
+.DS_Store

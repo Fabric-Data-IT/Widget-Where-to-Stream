@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" data-nx-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Where to Stream · Origin Nexus widget</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="./tokens.css" />
+    <link rel="stylesheet" href="./demo.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap top-in">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"></span>
+          <span><strong>Origin Nexus</strong> <span class="muted">Widgets</span></span>
+        </div>
+        <span class="pill" id="version">v2 beta</span>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero">
+        <p class="eyebrow">Embeddable widget</p>
+        <h1>Where to Stream</h1>
+        <p class="lead">
+          Show your readers where a movie or series is available in their country — subscription,
+          free, rent or buy — with one script tag and one HTML element. Style-isolated with Shadow
+          DOM, about 5&nbsp;KB gzipped, no dependencies.
+        </p>
+        <div class="notice" role="note">
+          <strong>Sample data.</strong> This demo runs against a <em>mock</em> of the Origin Nexus
+          API: the <code>/v1/where-to-stream</code> endpoint is not live yet. Titles, prices and
+          logos are placeholders.
+        </div>
+      </section>
+
+      <section class="play" aria-labelledby="play-h">
+        <h2 id="play-h">Playground</h2>
+        <div class="play-grid">
+          <form class="controls" id="controls" autocomplete="off">
+            <label>
+              <span>Title</span>
+              <select name="uid" id="f-uid"></select>
+            </label>
+            <label>
+              <span>Country</span>
+              <select name="country">
+                <option value="US">United States</option>
+                <option value="AR">Argentina</option>
+                <option value="BR">Brazil</option>
+                <option value="GB">United Kingdom</option>
+                <option value="ES">Spain</option>
+                <option value="MX">Mexico</option>
+              </select>
+            </label>
+            <label>
+              <span>Language</span>
+              <select name="locale">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="pt">Português</option>
+              </select>
+            </label>
+            <fieldset>
+              <legend>Theme</legend>
+              <div class="seg">
+                <label><input type="radio" name="theme" value="dark" checked /><span>Dark</span></label>
+                <label><input type="radio" name="theme" value="light" /><span>Light</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Layout</legend>
+              <div class="seg">
+                <label><input type="radio" name="layout" value="full" checked /><span>Full</span></label>
+                <label><input type="radio" name="layout" value="compact" /><span>Compact</span></label>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="stage" id="stage" data-nx-theme="dark">
+            <fabric-where-to-stream id="live"></fabric-where-to-stream>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-hd">
+            <span>Embed code</span>
+            <button type="button" class="btn" id="copy">Copy</button>
+          </div>
+          <pre><code id="code"></code></pre>
+        </div>
+      </section>
+
+      <section aria-labelledby="var-h">
+        <h2 id="var-h">States</h2>
+        <div class="cards">
+          <figure>
+            <div class="stage" data-nx-theme="light">
+              <fabric-where-to-stream data-demo uid="oi-demo-0001" country="US" theme="light"></fabric-where-to-stream>
+            </div>
+            <figcaption>Light theme, grouped by access model</figcaption>
+          </figure>
+          <figure>
+            <div class="stage" data-nx-theme="dark">
+              <fabric-where-to-stream data-demo uid="oi-demo-0002" country="MX" locale="es" layout="compact"></fabric-where-to-stream>
+            </div>
+            <figcaption>Compact layout, Spanish, MXN prices</figcaption>
+          </figure>
+          <figure>
+            <div class="stage" data-nx-theme="dark">
+              <fabric-where-to-stream data-demo uid="oi-demo-0004" country="US"></fabric-where-to-stream>
+            </div>
+            <figcaption>No offers in the selected country</figcaption>
+          </figure>
+          <figure>
+            <div class="stage" data-nx-theme="dark">
+              <fabric-where-to-stream data-demo data-blocked uid="oi-demo-0001" country="US"></fabric-where-to-stream>
+            </div>
+            <figcaption>Key used on a non-allowed domain (403)</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section aria-labelledby="attr-h">
+        <h2 id="attr-h">Attributes</h2>
+        <div class="table">
+          <table>
+            <thead>
+              <tr><th>Attribute</th><th>Required</th><th>Values</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>uid</code></td><td>Yes</td><td>string</td><td>Title ID. Origin UID by default.</td></tr>
+              <tr><td><code>id-type</code></td><td>No</td><td><code>uid</code> · <code>imdb</code> · <code>tmdb</code></td><td>What kind of ID <code>uid</code> holds.</td></tr>
+              <tr><td><code>country</code></td><td>Yes</td><td>ISO 3166-1 alpha-2</td><td>Market to show availability for.</td></tr>
+              <tr><td><code>client-key</code></td><td>Yes</td><td><code>pk_…</code></td><td>Your publishable key. Public, restricted to your domains.</td></tr>
+              <tr><td><code>locale</code></td><td>No</td><td><code>en</code> · <code>es</code> · <code>pt</code></td><td>UI language. Defaults to the page <code>lang</code>.</td></tr>
+              <tr><td><code>theme</code></td><td>No</td><td><code>dark</code> · <code>light</code></td><td>Color scheme. Override any <code>--nx-*</code> variable for fine-tuning.</td></tr>
+              <tr><td><code>layout</code></td><td>No</td><td><code>full</code> · <code>compact</code></td><td>Grouped list or a single row of logos.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted small">
+          Events (bubble out of the shadow root): <code>fws:load</code>, <code>fws:click</code>,
+          <code>fws:error</code>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">Powered by <strong>Fabric Data</strong> · Origin Nexus</div>
+    </footer>
+
+    <script type="module" src="./demo.js"></script>
+  </body>
+</html>

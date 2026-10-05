@@ -1,21 +1,11 @@
-MIT License
+Copyright (c) 2026 Fabric Data. Todos los derechos reservados.
 
-Copyright (c) 2024 BB Media IT
+[[confirmar: licencia comercial]]
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Este software (el widget "Where to Stream" de Origin Nexus, su código fuente, builds y
+documentación) es propietario y confidencial. No se otorga ninguna licencia, expresa ni
+implícita, para usarlo, copiarlo, modificarlo, distribuirlo ni sublicenciarlo, salvo en los
+términos de un contrato comercial vigente con Fabric Data.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Este texto es un PLACEHOLDER hasta que Legal defina la licencia comercial / EULA definitiva.
+Reemplaza la licencia MIT anterior ("BB Media IT"), que no aplica a la versión 2.

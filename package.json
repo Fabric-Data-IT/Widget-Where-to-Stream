@@ -1,0 +1,43 @@
+{
+  "name": "@fabric-data-it/where-to-stream",
+  "version": "2.0.0-beta.1",
+  "description": "Widget embebible \"Where to stream\" de Origin Nexus: web component <fabric-where-to-stream> con Shadow DOM.",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fabric-Data-IT/Widget-Where-to-Stream.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/where-to-stream.esm.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/where-to-stream.esm.js"
+    }
+  },
+  "scripts": {
+    "tokens:sync": "node scripts/sync-tokens.mjs",
+    "build": "node scripts/build.mjs",
+    "size": "node scripts/size.mjs",
+    "lint": "oxlint src test scripts demo",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "demo": "npm run build && node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "esbuild": "^0.28.2",
+    "happy-dom": "^20.14.5",
+    "oxlint": "^1.75.0",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
